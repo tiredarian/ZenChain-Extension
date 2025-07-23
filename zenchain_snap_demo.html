@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ZenChain Extension Full Demo</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    h1 {
+      color: #4CAF50;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #demo {
+      margin-top: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    #walletInfo {
+      margin-top: 10px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>ZenChain Extension Full Demo</h1>
+
+  <h2>📁 1. manifest.json</h2>
+  <pre>{
+  "manifest_version": 3,
+  "name": "ZenChain Snap",
+  "version": "1.0",
+  "description": "A secure ZenChain wallet & Node Station extension",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": ["storage", "activeTab", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["content.js"]
+  }],
+  "host_permissions": ["*://*/*"]
+}</pre>
+
+  <h2>📁 2. background.js</h2>
+  <pre>chrome.runtime.onInstalled.addListener(() => {
+  console.log("ZenChain Snap installed");
+});</pre>
+
+  <h2>📁 3. content.js</h2>
+  <pre>console.log("ZenChain Snap content script injected");
+
+window.ethereum = {
+  isZenChain: true,
+  request: async ({ method, params }) => {
+    console.log("ZenChain request", method, params);
+    // Handle transaction signing or other requests here
+  }
+};</pre>
+
+  <h2>📁 4. popup.html + popup.js (Demo below)</h2>
+
+  <div id="demo">
+    <h3>ZenChain Snap Demo UI</h3>
+    <button id="createWallet">Create Wallet</button>
+    <button id="importWallet">Import Wallet</button>
+    <button id="showBalance">Show Balance</button>
+    <button id="connectNodeStation">Open Node Station</button>
+    <div id="walletInfo">No wallet loaded.</div>
+  </div>
+
+  <script>
+    const provider = new ethers.providers.JsonRpcProvider("https://rpc.testnet.zenchain.network");
+
+    document.getElementById("createWallet").addEventListener("click", async () => {
+      const account = ethers.Wallet.createRandom();
+      localStorage.setItem("privateKey", account.privateKey);
+      document.getElementById("walletInfo").innerText = `Wallet Created\nAddress: ${account.address}\nPrivate Key: ${account.privateKey}`;
+    });
+
+    document.getElementById("importWallet").addEventListener("click", async () => {
+      const pk = prompt("Enter Private Key:");
+      if (!pk) return;
+      const account = new ethers.Wallet(pk);
+      localStorage.setItem("privateKey", account.privateKey);
+      document.getElementById("walletInfo").innerText = `Wallet Imported\nAddress: ${account.address}`;
+    });
+
+    document.getElementById("showBalance").addEventListener("click", async () => {
+      const pk = localStorage.getItem("privateKey");
+      if (!pk) return alert("No wallet found.");
+      const wallet = new ethers.Wallet(pk, provider);
+      const balance = await wallet.getBalance();
+      document.getElementById("walletInfo").innerText += `\nBalance: ${ethers.utils.formatEther(balance)} ZEN`;
+    });
+
+    document.getElementById("connectNodeStation").addEventListener("click", () => {
+      window.open("https://node.zenchain.network", "_blank");
+    });
+  </script>
+
+</body>
+</html>
