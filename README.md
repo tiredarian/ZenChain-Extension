@@ -1,29 +1,34 @@
-# ZenChain-Extension
 # 🚀 ZenChain Snap Extension
 
-A powerful browser extension wallet and Node Station manager for **ZenChain**.
-
-![ZenChain Snap Banner](https://your-screenshot-or-banner-link.png)
+A powerful browser extension wallet and Node Station manager for the **ZenChain** network.
 
 ---
 
-## 🌟 **What is ZenChain Snap?**
+## ✨ **What is it?**
 
-**ZenChain Snap** is an all-in-one browser extension that allows users to:
+**ZenChain Snap** is an all-in-one Chrome extension that lets you:
+- ✅ **Create & Import wallets** on ZenChain (EVM-compatible)
+- ✅ **Sign transactions** securely from your browser
+- ✅ **Connect to ZenChain dApps** via injected web3 provider (like MetaMask)
+- ✅ **Manage ZIP-20 tokens**
+- ✅ **Use Node Station features:** bond/unbond, nominate, fast-unstake, claim rewards & manage validator keys – all directly in the extension!
 
-✅ Create and import ZenChain wallets  
-✅ View balances and manage ZIP-20 assets  
-✅ Sign transactions directly from their browser  
-✅ Connect to ZenChain dApps with an injected web3 provider  
-✅ Manage validator and nominator operations via Node Station integration
+No need for separate tools or websites — everything happens inside your browser.
 
 ---
 
-## 🔧 **Features**
+## ⚡ **Key Features**
 
-- 🪪 **Wallet Management** – Create or import wallets securely  
-- 💰 **Balance Viewer** – See your ZEN balance instantly  
-- ✍️ **Transaction Signing** – Sign and send transactions seamlessly  
-- 🌐 **dApp Connection** – Connect to ZenChain dApps just like MetaMask  
-- ⚙️ **Node Station Integration** – Bond, unbond, nominate, and manage your validator actions directly
+- 🔐 **Secure key management**
+- ⚙️ **RPC connection** to ZenChain Testnet & Mainnet
+- 🌐 **Inject web3 provider** to interact with dApps
+- 📊 **Integrated staking & validator operations** with ZenChain precompiled contracts
+- 🟢 **Node Station launcher** for advanced on-chain operations
 
+---
+
+## 🚧 **Project Status**
+
+🛠️ Currently under active development.  
+📌 Demo HTML available [**here**](#) *(upload your HTML to GitHub or share link)*  
+💡 Fully functional MVP planned for Q3 2025.
